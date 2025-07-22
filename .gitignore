@@ -1,0 +1,43 @@
+# OS
+.DS_Store
+
+# Editor
+.idea/
+.vscode/
+
+# Logs and temp files
+*.log
+tmp/
+*.tmp
+*.swp
+
+# Python cache and build
+__pycache__/
+*.py[cod]
+*.egg
+*.egg-info/
+dist/
+build/
+htmlcov/
+coverage.xml
+.cache/
+.tox/
+.mypy_cache/
+pytest_cache/
+
+# Virtual environments
+.venv/
+env/
+venv/
+
+# CI artifacts
+*.cover
+*.prof
+*.out
+*.gcov
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Test fixtures
+test-results/

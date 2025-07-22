@@ -1,0 +1,8 @@
+black==24.3.0
+isort==5.13.2
+flake8==7.0.0
+mypy==1.8.0
+eth-hash[pycryptodome]
+eth-utils
+hypothesis==6.98.0
+pytest==8.2.1
