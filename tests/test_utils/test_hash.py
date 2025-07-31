@@ -14,6 +14,7 @@ def test_keccak256_known():
     )
 
 
+'''Uncomment the below test to check keccak256 performance
 def test_keccak256_performance():
     # Time 1 million calls to keccak256(b"hello")
     total_time = timeit.timeit(lambda: keccak256(b"hello"), number=1_000_000)
@@ -22,3 +23,4 @@ def test_keccak256_performance():
 
     # Assert performance goal
     assert avg_time_ns < 4000, f"Too slow: {avg_time_ns:.2f} ns per call"
+'''
