@@ -60,11 +60,12 @@ def decode_path(path: bytes) -> Tuple[List[int], bool]:
 # ── trie ─────────────────────────────────────────────────────────────────
 
 class Trie:
-    def __init__(self, db: KeyValueDB):
+    def __init__(self, db: KeyValueDB, *, root: Optional[Node] = None):
         self.db   = db
-        self.root: Optional[Node] = None
+        # caller may pass an existing root to view / update a sub-trie
+        self.root: Optional[Node] = root
 
-    # ── public API ────────────────────────────────────────────────────
+# ── public API ────────────────────────────────────────────────────
 
     def get(self, key: bytes) -> Optional[bytes]:
         return self._get(self.root, bytes_to_nibbles(key))
@@ -103,11 +104,13 @@ class Trie:
     def _update(self, node: Optional[Node], key: List[int], value: bytes) -> Node:
         if not node:                                # empty spot → new leaf
             return self._store_node([encode_path(key, True), value])
-
         if node == b'':                             # empty child placeholder
             return self._store_node([encode_path(key, True), value])
-
         if isinstance(node, bytes) and len(node) == 32:
+            # Check if this is the empty trie root hash
+            empty_hash = keccak256(encode(b""))
+            if node == empty_hash:
+                return self._store_node([encode_path(key, True), value])
             node = self._resolve(node)
 
         # ── LEAF / EXTENSION ───────────────────────────────────────
